@@ -13,59 +13,26 @@
     }
     video {
       width: 100%;
+      
+      /* Hide the play button */
+      -webkit-appearance: none;
+      appearance: none;
     }
   </style>
-  </head>
-  <body>
-  <div id="video-container">
-    <video id="video" autoplay playsinline></video>
-  </div>
+</head>
+<body>
+  <div id="video-container"></div>
 
   <script>
-  //   const video = document.getElementById('video');
+    var video = document.createElement('video');
+    video.style.width = document.documentElement.clientWidth + 'px'; // Using document.documentElement.clientWidth for better cross-browser compatibility
+    video.style.height = document.documentElement.clientHeight + 'px'; // Using document.documentElement.clientHeight for better cross-browser compatibility
+    video.setAttribute('autoplay', '');
+    video.setAttribute('muted', '');
+    video.setAttribute('playsinline', '');
 
-  //   // Accessing the front camera
-  //   navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
-  //     .then(function(stream) {
-  //       video.srcObject = stream;
-  //     })
-  //     .catch(function(error) {
-  //       console.error('Error accessing the camera.', error);
-  //     });
-
-
-  var video = document.createElement('video');
-video.style.width = document.documentElement.clientWidth + 'px'; // Using document.documentElement.clientWidth for better cross-browser compatibility
-video.style.height = document.documentElement.clientHeight + 'px'; // Using document.documentElement.clientHeight for better cross-browser compatibility
-video.setAttribute('autoplay', '');
-video.setAttribute('muted', '');
-video.setAttribute('playsinline', '');
-
-var facingMode = "user";
-var constraints = {
-    audio: false,
-    video: {
-        facingMode: facingMode
-    }
-};
-
-navigator.mediaDevices.getUserMedia(constraints)
-    .then(function success(stream) {
-        video.srcObject = stream;
-        document.body.appendChild(video); // Append the video element only after the stream is successfully obtained
-    })
-    .catch(function error(err) {
-        console.error('Error accessing user media:', err);
-    });
-
-video.addEventListener('click', function () {
-    if (facingMode === "user") {
-        facingMode = "environment";
-    } else {
-        facingMode = "user";
-    }
-
-    constraints = {
+    var facingMode = "environment";
+    var constraints = {
         audio: false,
         video: {
             facingMode: facingMode
@@ -75,16 +42,37 @@ video.addEventListener('click', function () {
     navigator.mediaDevices.getUserMedia(constraints)
         .then(function success(stream) {
             video.srcObject = stream;
+            document.getElementById('video-container').appendChild(video); // Append the video element to the container div
         })
         .catch(function error(err) {
-            console.error('Error switching camera mode:', err);
+            console.error('Error accessing user media:', err);
         });
-});
 
+    video.addEventListener('click', function () {
+        if (facingMode === "user") {
+            facingMode = "environment";
+        } else {
+            facingMode = "user";
+        }
 
+        constraints = {
+            audio: false,
+            video: {
+                facingMode: facingMode
+            }
+        };
 
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then(function success(stream) {
+                video.srcObject = stream;
+            })
+            .catch(function error(err) {
+                console.error('Error switching camera mode:', err);
+            });
+    });
   </script>
-  </body>
+</body>
 </html>
+
 
 
