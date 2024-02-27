@@ -17,23 +17,12 @@
       /* Hide the play button */
       -webkit-appearance: none;
       appearance: none;
+      
     }
-    /* Hide the play button for different browsers */
     video::-webkit-media-controls-start-playback-button {
-      display: none;
+      display: none; /* Hide the play button */
     }
-    video::-webkit-media-controls-play-button {
-      display: none;
-    }
-    video::-webkit-media-controls-overlay-play-button {
-      display: none;
-    }
-    video::-webkit-media-controls-panel {
-      display: none !important;
-    }
-    video::-webkit-media-controls-play-button {
-      display: none !important;
-    }
+
   </style>
 </head>
 <body>
@@ -64,28 +53,6 @@
             console.error('Error accessing user media:', err);
         });
 
-    video.addEventListener('click', function () {
-        if (facingMode === "user") {
-            facingMode = "environment";
-        } else {
-            facingMode = "user";
-        }
-
-        constraints = {
-            audio: false,
-            video: {
-                facingMode: facingMode
-            }
-        };
-
-        navigator.mediaDevices.getUserMedia(constraints)
-            .then(function success(stream) {
-                video.srcObject = stream;
-            })
-            .catch(function error(err) {
-                console.error('Error switching camera mode:', err);
-            });
-    });
   </script>
 </body>
 </html>
