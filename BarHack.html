@@ -4,20 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Front Camera Preview</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <style>
     #video-container {
-      width: 100%;
-      max-width: 400px;
+      width: 500px;
+      height: 500px;
       margin: auto;
-      text-align: center;
+      overflow: hidden; /* Crop the video to the container size */
+      position: relative; /* Establish positioning context for absolutely positioned children */
+      display: flex; /* Use flexbox */
+      align-items: center; /* Center vertically */
+      justify-content: center; /* Center horizontally */
     }
     video {
-      width: 100%;
-      
+      width: 100%; /* Ensure the video fills the container */
+      height: 100%; /* Ensure the video fills the container */
+      object-fit: cover; /* Cover the entire container without stretching */
+
       /* Hide the play button */
       -webkit-appearance: none;
       appearance: none;
-      
     }
     video::-webkit-media-controls-start-playback-button {
       display: none !important; /* Hide the play button */
@@ -26,8 +32,23 @@
   </style>
 </head>
 <body>
-  <div id="video-container"></div>
+  
+  <div class="col-12 text-center">
+    <h2>Scan The Code</h2>
+  </div>
+  
+  <div id="video-container">
 
+  </div> <!-- flex box for camera view -->
+
+
+
+
+
+
+
+
+  <!-- Javascript -->
   <script>
     var video = document.createElement('video');
     video.style.width = document.documentElement.clientWidth + 'px'; // Using document.documentElement.clientWidth for better cross-browser compatibility
