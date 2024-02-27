@@ -1,81 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Front Camera Preview</title>
-<style>
-  #video-container {
-    width: 100%;
-    max-width: 400px;
-    margin: auto;
-    text-align: center;
-  }
-  video {
-    width: 100%;
-  }
-</style>
-</head>
-<body>
-<div id="video-container">
-  <video id="video" autoplay playsinline></video>
-</div>
-
-<script>
-//   const video = document.getElementById('video');
-
-//   // Accessing the front camera
-//   navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
-//     .then(function(stream) {
-//       video.srcObject = stream;
-//     })
-//     .catch(function(error) {
-//       console.error('Error accessing the camera.', error);
-//     });
-
-
-    var video = document.createElement('video');
-    video.style.width = document.width + 'px';
-    video.style.height = document.height + 'px';
-    video.setAttribute('autoplay', '');
-    video.setAttribute('muted', '');
-    video.setAttribute('playsinline', '');
-
-    var facingMode = "user";var constraints = {
-        audio: false,
-        video: {
-        facingMode: 'user'
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Front Camera Preview</title>
+  <style>
+    #video-container {
+      width: 100%;
+      max-width: 400px;
+      margin: auto;
+      text-align: center;
     }
+    video {
+      width: 100%;
+    }
+  </style>
+  </head>
+  <body>
+  <div id="video-container">
+    <video id="video" autoplay playsinline></video>
+  </div>
 
-    navigator.mediaDevices.getUserMedia(constraints).then(function success(stream) {
+  <script>
+  //   const video = document.getElementById('video');
+
+  //   // Accessing the front camera
+  //   navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
+  //     .then(function(stream) {
+  //       video.srcObject = stream;
+  //     })
+  //     .catch(function(error) {
+  //       console.error('Error accessing the camera.', error);
+  //     });
+
+
+  var video = document.createElement('video');
+video.style.width = document.documentElement.clientWidth + 'px'; // Using document.documentElement.clientWidth for better cross-browser compatibility
+video.style.height = document.documentElement.clientHeight + 'px'; // Using document.documentElement.clientHeight for better cross-browser compatibility
+video.setAttribute('autoplay', '');
+video.setAttribute('muted', '');
+video.setAttribute('playsinline', '');
+
+var facingMode = "user";
+var constraints = {
+    audio: false,
+    video: {
+        facingMode: facingMode
+    }
+};
+
+navigator.mediaDevices.getUserMedia(constraints)
+    .then(function success(stream) {
         video.srcObject = stream;
-        });
+        document.body.appendChild(video); // Append the video element only after the stream is successfully obtained
+    })
+    .catch(function error(err) {
+        console.error('Error accessing user media:', err);
+    });
 
-        document.body.appendChild(video);
-
-        video.addEventListener('click', function() {
-    if (facingMode == "user") {
+video.addEventListener('click', function () {
+    if (facingMode === "user") {
         facingMode = "environment";
     } else {
         facingMode = "user";
     }
-    
+
     constraints = {
         audio: false,
         video: {
-        facingMode: facingMode
+            facingMode: facingMode
         }
-    } 
-    
-    navigator.mediaDevices.getUserMedia(constraints).then(function success(stream) {
-        video.srcObject = stream; 
-    });
-    });
+    };
+
+    navigator.mediaDevices.getUserMedia(constraints)
+        .then(function success(stream) {
+            video.srcObject = stream;
+        })
+        .catch(function error(err) {
+            console.error('Error switching camera mode:', err);
+        });
+});
 
 
-</script>
-</body>
+
+  </script>
+  </body>
 </html>
 
 
