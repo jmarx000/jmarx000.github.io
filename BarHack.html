@@ -63,6 +63,14 @@
       height: 50px;
     }
 
+    #success-btn {
+        background-color: transparent; /* Make background transparent */
+        color: transparent; /* Make text transparent */
+        border: none; /* Remove border */
+        height: 100px;
+        /* Optionally, you can set other properties like padding, margin, etc. */
+    }
+
 
     
   </style>
@@ -89,6 +97,10 @@
   <div class="d-flex justify-content-center mt-3">
     <button type="button" id="cancel-btn" class="col-10 btn">Cancel Scan</button>
   </div>
+  
+  <div class="d-flex justify-content-center mt-3">
+    <button type="button" id="success-btn" class="col-10 btn">Success</button>
+  </div>
 
 
 
@@ -114,6 +126,11 @@
     document.getElementById("cancel-btn").addEventListener("click", function() {
             // Navigate to a different webpage
             window.location.href = "BarHack Setup.html";
+    });
+
+    document.getElementById("success-btn").addEventListener("click", function() {
+            // Navigate to a different webpage
+            window.location.href = "Success.html";
     });
     
     
