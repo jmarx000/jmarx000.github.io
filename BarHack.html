@@ -46,6 +46,16 @@
       font-weight: 800;
     }
 
+    #num-guests {
+      color: rgb(104, 156, 113);
+    }
+
+    #cancel-btn {
+      background-color: rgb(34, 34, 34);
+      color: white;
+      font-weight: bold;
+    }
+
 
     
   </style>
@@ -67,20 +77,31 @@
   </div> <!-- flex box for camera view -->
 
   <div class="d-flex justify-content-center mt-2">
-    <button type="button" class="col-10 btn">Cancel Scan</button>
+    <button type="button" id="cancel-btn" class="col-10 btn">Cancel Scan</button>
   </div>
-  
-
-
-
-
-
 
 
 
   <!-- Javascript -->
   <script>
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        // Your code to execute on page load goes here
+        console.log("Page loaded");
+
+        if (localStorage.numPeople != null) {
+          document.querySelector("#num-guests").innerHTML = localStorage.numPeople;
+        }
+    });
+
+    document.getElementById("cancel-btn").addEventListener("click", function() {
+            // Navigate to a different webpage
+            window.location.href = "BarHack Setup.html";
+    });
+    
+    
     var video = document.createElement('video');
+
     video.style.width = document.documentElement.clientWidth + 'px'; // Using document.documentElement.clientWidth for better cross-browser compatibility
     video.style.height = document.documentElement.clientHeight + 'px'; // Using document.documentElement.clientHeight for better cross-browser compatibility
     video.setAttribute('autoplay', '');
@@ -103,6 +124,9 @@
         .catch(function error(err) {
             console.error('Error accessing user media:', err);
         });
+    
+
+      
 
   </script>
 </body>
