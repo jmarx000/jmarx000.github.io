@@ -35,6 +35,7 @@
 
     h2 {
       font-weight: bold;
+      font-size: 1.5em;
       font-family: "Open Sans", "sans-sarif";
       font-weight: 800;
     }
@@ -68,7 +69,7 @@
 
     <p class="mt-2">Verify your purchase by scanning the code supplied by the staff member.</p>
 
-    <h1>Valid For <span id="num-guests">1</span> Guest</h1>
+    <h1 style="display: inline-block;">Valid For <span id="num-guests">1</span></h1><h1 id="guest-text" style="display: inline-block; margin-left: 7px;">Guest</h1>
   </div>
 
   
@@ -92,6 +93,13 @@
 
         if (localStorage.numPeople != null) {
           document.querySelector("#num-guests").innerHTML = localStorage.numPeople;
+          if (localStorage.numPeople === "1") {
+              console.log("One");
+              document.querySelector("#guest-text").innerHTML = "Guest";
+          } else {
+              console.log("Multiple");
+              document.querySelector("#guest-text").innerHTML = "Guests";
+          }
         }
     });
 
